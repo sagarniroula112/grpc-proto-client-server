@@ -3,6 +3,7 @@ package com.learning.banking.transactionservice;
 import com.learning.banking.account.v1.GetAccountBalanceResponse;
 
 import com.learning.banking.account.v1.GetAccountDetailsResponse;
+import com.learning.banking.account.v1.GetCustomerDetailsResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,21 @@ public class TransactionController {
 
     public TransactionController(AccountGrpcClient accountGrpcClient) {
         this.accountGrpcClient = accountGrpcClient;
+    }
+
+    @GetMapping("/customer/{customerId}/details")
+    public String getCustomerDetails(@PathVariable String customerId) {
+
+        GetCustomerDetailsResponse response =
+                accountGrpcClient.getCustomerDetails(customerId);
+
+        return "Customer ID: " + response.getId()
+                + ", First Name: " + response.getFirstName()
+                + ", Middle Name: " + response.getMiddleName()
+                + ", Last Name: " + response.getLastName()
+                + ", District Code: " + response.getDistrictCode()
+                + ", Document Type: " + response.getDocumentType()
+                + ", Document Number: " + response.getDocumentIdNumber();
     }
 
     @GetMapping("/transactions/account/{accountId}/balance")

@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 public class AccountGrpcClient {
 
     private final ManagedChannel channel;
-    private final AccountServiceGrpc.AccountServiceBlockingStub stub;
+    private final AccountServiceGrpc.AccountServiceBlockingStub accountStub;
+    private final CustomerServiceGrpc.CustomerServiceBlockingStub customerStub;
 
     public AccountGrpcClient() {
 
@@ -20,7 +21,8 @@ public class AccountGrpcClient {
                 .usePlaintext()
                 .build();
 
-        this.stub = AccountServiceGrpc.newBlockingStub(channel);
+        this.accountStub = AccountServiceGrpc.newBlockingStub(channel);
+        this.customerStub = CustomerServiceGrpc.newBlockingStub(channel);
     }
 
     public GetAccountBalanceResponse getAccountBalance(String accountId) {
@@ -30,7 +32,7 @@ public class AccountGrpcClient {
                         .setAccountId(accountId)
                         .build();
 
-        return stub.getAccountBalance(request);
+        return accountStub.getAccountBalance(request);
     }
 
     public GetAccountDetailsResponse getAccountDetails(String accountId) {
@@ -40,6 +42,16 @@ public class AccountGrpcClient {
                         .setAccountId(accountId)
                         .build();
 
-        return stub.getAccountDetails(request);
+        return accountStub.getAccountDetails(request);
+    }
+
+    public GetCustomerDetailsResponse getCustomerDetails(String customerId) {
+
+        GetCustomerDetailsRequest request =
+                GetCustomerDetailsRequest.newBuilder()
+                        .setId(customerId)
+                        .build();
+
+        return customerStub.getCustomerDetails(request);
     }
 }
