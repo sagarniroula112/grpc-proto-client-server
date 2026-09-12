@@ -8,6 +8,9 @@ option java_package = "com.learning.banking.account.v1";
 service AccountService {
   rpc GetAccountBalance(GetAccountBalanceRequest)
       returns (GetAccountBalanceResponse);
+
+  rpc GetAccountDetails(GetAccountDetailsRequest)
+      returns (GetAccountDetailsResponse);
 }
 
 message GetAccountBalanceRequest {
@@ -18,4 +21,15 @@ message GetAccountBalanceResponse {
   string account_id = 1;
   int64 balance_in_paisa = 2;
   string currency = 3;
+}
+
+message GetAccountDetailsRequest {
+  string account_id = 1;
+}
+
+message GetAccountDetailsResponse {
+  string account_id = 1;
+  string scheme_code = 2;
+  int64 branch_code = 3;
+  string customer_account_type = 4;
 }
