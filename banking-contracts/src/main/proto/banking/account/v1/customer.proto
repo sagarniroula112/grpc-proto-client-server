@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package banking.account.v1;
+
+option java_multiple_files = true;
+option java_package = "com.learning.banking.account.v1";
+
+service CustomerService{
+  rpc GetCustomerDetails(GetCustomerDetailsRequest)
+    returns (GetCustomerDetailsResponse);
+}
+
+message GetCustomerDetailsRequest{
+    string id = 1;
+}
+
+message GetCustomerDetailsResponse{
+  string id = 1;
+  string first_name = 2;
+  string middle_name = 3;
+  string last_name = 4;
+  string district_code = 5;
+  string document_type = 6;
+  string document_id_number = 7;
+}
