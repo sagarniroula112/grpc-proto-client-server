@@ -7,7 +7,7 @@
         <server>
             <id>nexus-releases</id>
             <username>admin</username>
-            <password>Helloworld123#</password>
+            <password>YOUR_NEXUS_PW</password>
         </server>
     </servers>
 
