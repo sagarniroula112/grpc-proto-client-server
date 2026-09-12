@@ -1,8 +1,6 @@
 package com.learning.banking.transactionservice;
 
-import com.learning.banking.account.v1.AccountServiceGrpc;
-import com.learning.banking.account.v1.GetAccountBalanceRequest;
-import com.learning.banking.account.v1.GetAccountBalanceResponse;
+import com.learning.banking.account.v1.*;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -33,5 +31,15 @@ public class AccountGrpcClient {
                         .build();
 
         return stub.getAccountBalance(request);
+    }
+
+    public GetAccountDetailsResponse getAccountDetails(String accountId) {
+
+        GetAccountDetailsRequest request =
+                GetAccountDetailsRequest.newBuilder()
+                        .setAccountId(accountId)
+                        .build();
+
+        return stub.getAccountDetails(request);
     }
 }
